@@ -54,16 +54,21 @@ export const orderReducer = (state: OrderState = initialState, action: OrderActi
   }
 
   if (action.type === 'placeOrder') {
-    
+    // console.log('Guardando Orden de consumo...')
+
     return {
-      ...state
+      ...state,
+      order: [],
+      tip: 0
     }
   }
 
   if (action.type === 'add-tip') {
-    
+    // * UseReducer no tiene forma de modificar directamente el STATE
+    const tip = action.payload.value
     return {
-     ...state
+     ...state,
+     tip: tip
     }
   }
 
