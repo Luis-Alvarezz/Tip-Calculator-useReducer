@@ -1,4 +1,5 @@
-import type { Dispatch, SetStateAction } from "react"
+import type React from "react"
+import type { OrderActions } from "../reducers/cal-prop-reducer"
 const tipOptions = [
   {
     id: '.10',
@@ -18,11 +19,12 @@ const tipOptions = [
 ]
 
 type TipPercentageProps = {
-  setTip: Dispatch<SetStateAction<number>>, // * Inferencia de vsCode para values mas avanzados
+  // setTip: Dispatch<SetStateAction<number>>, // * Inferencia de vsCode para values mas avanzados
+  dispatch: React.Dispatch<OrderActions>
   tip: number
 }
 
-export default function TipPercentageForm({setTip, tip} : TipPercentageProps) {
+export default function TipPercentageForm({dispatch, tip} : TipPercentageProps) {
   return (
     <div>
       <h3 className="font-black text-2xl">Propina: </h3>
@@ -36,7 +38,7 @@ export default function TipPercentageForm({setTip, tip} : TipPercentageProps) {
                 id={tipOption.id} 
                 name="tip"  
                 value={tipOption.value}
-                onChange={e => setTip(+e.target.value)} // * +e.target.value -> Convertimos el string a number
+                onChange={e => dispatch({type: 'add-tip', payload: {value: (+e.target.value)}})} // * +e.target.value -> Convertimos el string a number
                 // * Opc 2: e.target.valueAsNumber -> Pero NO funciona con radio, unicamente con tipo TEXT y otros inputs
                 checked={tipOption.value === tip} // * Revisa si el valor del tip es igual al que se almacena en mi orden al dar 'Guardar Orden'
                 // * (claramente no, por ende NO seran iguales y se deja de marcar )
