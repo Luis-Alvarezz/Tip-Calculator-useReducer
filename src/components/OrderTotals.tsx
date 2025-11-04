@@ -1,14 +1,16 @@
 import { useMemo } from "react"
 import type { OrderItem } from "../types/types"
 import { formatCurrency } from "../helpers"
+import type { OrderActions } from "../reducers/cal-prop-reducer"
 
 type OrderTotalsProps = {
   order: OrderItem[],
   tip: number,
-  placeOrder: () => void
+  // placeOrder: () => void
+  dispatch: React.Dispatch<OrderActions>
 }
 
-export default function OrderTotals({order, tip, placeOrder}: OrderTotalsProps) {
+export default function OrderTotals({order, tip, dispatch}: OrderTotalsProps) {
   
   const subTotalAmount = useMemo(() => order.reduce((total, item) => total + (item.quantity * item.price), 0 ), [order])
   // * useMemo nos simplifica el que se ejecute ese codigo cuando cambie la referencia y tambien evita tener ${subTotalAmount}
@@ -38,7 +40,7 @@ export default function OrderTotals({order, tip, placeOrder}: OrderTotalsProps) 
       <button 
         className="w-full bg-black p-3 uppercase text-white font-bold mt-10 disabled:opacity-25"
         disabled={totalAmount === 0}
-        onClick={placeOrder}
+        onClick={() => dispatch({type: 'placeOrder'})}
         >
         Guardar Orden
       </button>
