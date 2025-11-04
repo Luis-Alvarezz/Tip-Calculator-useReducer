@@ -15,7 +15,7 @@ export default function OrderContents({ order, dispatch }: OrderContentsProps) {
       <div className="space-y-3 mt-10">
         {
           order.map( item => (
-            <div key={ item.id } className="flex justify-between items-center border-t border-gray-300 last-of-type:border-b">
+            <div key={ item.id } className="flex justify-between items-center border-t py-5 border-gray-300 last-of-type:border-b">
               <div>
               <p className="text-lg">
                 { item.name } - {formatCurrency(item.price)}
